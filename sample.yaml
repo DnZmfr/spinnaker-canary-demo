@@ -4,6 +4,7 @@ metadata:
   name: nginx-spinnaker-app
   labels:
     app: nginx-spinnaker-app
+  namespace: spinnaker
 spec:
   replicas: 3
   selector:
@@ -28,6 +29,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: nginx-spinnaker-service
+  namespace: spinnaker
 spec:
   ports:
     - port: 8080
