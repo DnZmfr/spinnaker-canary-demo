@@ -19,7 +19,7 @@ spec:
         - image: dnzmfr/spinnaker:0.1
           name: spinnaker-app-pod
           ports:
-            - containerPort: 8080
+            - containerPort: 80
               name: http
               protocol: TCP
 ---
@@ -31,8 +31,8 @@ metadata:
 spec:
   ports:
     - protocol: TCP
-      port: 8080
-      targetPort: 9090
+      port: 80
+      targetPort: 80
   selector:
     app: nginx-spinnaker-app
   type: LoadBalancer
