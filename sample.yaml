@@ -16,7 +16,7 @@ spec:
         app: nginx-spinnaker-app
     spec:
       containers:
-        - image: dnzmfr/spinnaker:0.1
+        - image: dnzmfr/spinnaker:0.2
           name: spinnaker-app-pod
           ports:
             - containerPort: 80
