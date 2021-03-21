@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-spinnaker-app
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: nginx-spinnaker-app
+    spec:
+      containers:
+        - image: dnzmfr/spinnaker:0.1
+          name: spinnaker-app-pod
+          ports:
+            - containerPort: 8080
+              name: http
+              protocol: TCP
+      imagePullSecrets:
+        - name: regcred
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx-spinnaker-service
+spec:
+  ports:
+    - port: 8080
+      protocol: TCP
+  selector:
+    app: nginx-spinnaker-app
+  type: ClusterIP
