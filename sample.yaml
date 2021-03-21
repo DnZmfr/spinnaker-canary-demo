@@ -2,8 +2,13 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: nginx-spinnaker-app
+  labels:
+    app: nginx-spinnaker-app
 spec:
-  replicas: 1
+  replicas: 3
+  selector:
+    matchLabels:
+      app: nginx-spinnaker-app
   template:
     metadata:
       labels:
