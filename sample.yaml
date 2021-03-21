@@ -30,8 +30,9 @@ metadata:
   namespace: spinnaker
 spec:
   ports:
-    - port: 8080
-      protocol: TCP
+    - protocol: TCP
+      port: 8080
+      targetPort: 9090
   selector:
     app: nginx-spinnaker-app
-  type: ClusterIP
+  type: LoadBalancer
