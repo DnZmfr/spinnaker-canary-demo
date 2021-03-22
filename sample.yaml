@@ -1,23 +1,31 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: nginx-spinnaker-app
   labels:
-    app: nginx-spinnaker-app
+    app: nginx-demo-app
+  name: nginx-demo-app
   namespace: spinnaker
 spec:
   replicas: 3
   selector:
     matchLabels:
-      app: nginx-spinnaker-app
+      app: nginx-demo-app
   template:
     metadata:
+      annotations:
+        prometheus.io/scrape: 'true'
       labels:
-        app: nginx-spinnaker-app
+        app: nginx-demo-app
     spec:
       containers:
-        - image: dnzmfr/spinnaker:0.2
-          name: spinnaker-app-pod
+        - env:
+            - name: SUCCESS_RATE
+              valueFrom:
+                configMapKeyRef:
+                  key: SUCCESS_RATE
+                  name: nginx-demo-config-prod
+          image: 'dnzmfr/nginx-demo:0.3'
+          name: nginx-demo-app-pod
           ports:
             - containerPort: 80
               name: http
@@ -26,13 +34,13 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: nginx-spinnaker-service
+  name: nginx-demo-service
   namespace: spinnaker
 spec:
   ports:
-    - protocol: TCP
-      port: 80
+    - port: 80
+      protocol: TCP
       targetPort: 80
   selector:
-    app: nginx-spinnaker-app
+    app: nginx-demo-app
   type: LoadBalancer
