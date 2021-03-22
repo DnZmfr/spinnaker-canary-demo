@@ -24,7 +24,7 @@ spec:
                 configMapKeyRef:
                   key: SUCCESS_RATE
                   name: nginx-demo-config-prod
-          image: 'dnzmfr/nginx-demo:0.3'
+          image: 'dnzmfr/nginx-demo:0.4'
           name: nginx-demo-app-pod
           ports:
             - containerPort: 80
