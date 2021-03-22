@@ -18,14 +18,8 @@ spec:
         app: nginx-demo-app
     spec:
       containers:
-        - env:
-            - name: SUCCESS_RATE
-              valueFrom:
-                configMapKeyRef:
-                  key: SUCCESS_RATE
-                  name: nginx-demo-config-prod
-          image: 'dnzmfr/nginx-demo:0.4'
-          name: nginx-demo-app-pod
+        - image: 'dnzmfr/nginx-demo:0.4'
+          name: nginx-demo-app
           ports:
             - containerPort: 80
               name: http
