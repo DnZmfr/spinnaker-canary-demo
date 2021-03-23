@@ -53,8 +53,7 @@ aws eks update-kubeconfig --name ${EKS_CLUSTER_NAME} --region eu-central-1 --ali
 bold "Deploy Prometheus and Grafana"
 kubectl create namespace prometheus
 kubectl create namespace grafana
-helm install prometheus-blackbox-exporter prometheus-community/prometheus-blackbox-exporter --namespace prometheus
-helm upgrade --install prometheus prometheus-community/prometheus -f prometheus-blackbox.yaml --namespace prometheus
+helm install prometheus prometheus-community/prometheus --namespace prometheus
 helm install grafana grafana/grafana --namespace grafana --set adminPassword=parola123 --values grafana.yaml --set service.type=LoadBalancer
 
 bold "Prepare Spinnaker"
