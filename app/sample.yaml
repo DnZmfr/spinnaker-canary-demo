@@ -2,24 +2,24 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    app: nginx-demo-app
-  name: nginx-demo
+    app: canary-demo-app
+  name: canary-demo
   namespace: spinnaker
 spec:
   replicas: 3
   selector:
     matchLabels:
-      app: nginx-demo-app
+      app: canary-demo-app
   template:
     metadata:
       annotations:
         prometheus.io/scrape: 'true'
       labels:
-        app: nginx-demo-app
+        app: canary-demo-app
     spec:
       containers:
-        - image: 'dnzmfr/nginx-demo:0.1'
-          name: nginx-demo-pod
+        - image: 'dnzmfr/canary-demo:0.1'
+          name: canary-demo-pod
           readinessProbe:
             httpGet:
               path: /
@@ -33,15 +33,15 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: nginx-demo
+  name: canary-demo
   namespace: spinnaker
   labels:
-    app: nginx-demo-app
+    app: canary-demo-app
 spec:
   ports:
   - port: 80
     protocol: TCP
   selector:
-    app: nginx-demo-app
+    app: canary-demo-app
   type: LoadBalancer
 

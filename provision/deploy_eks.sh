@@ -117,7 +117,7 @@ hal config artifact github account add $GITHUB_ACCOUNT_NAME --token-file $GITHUB
 hal config provider docker-registry enable
 export DOCKER_ACCOUNT_NAME=dnzmfr
 export DOCKER_PASS_FILE=/home/ec2-user/.docker.psw
-hal config provider docker-registry account add $DOCKER_ACCOUNT_NAME --address index.docker.io --repositories dnzmfr/nginx-demo --username $DOCKER_ACCOUNT_NAME --email dropsu@gmail.com --password-file $DOCKER_PASS_FILE
+hal config provider docker-registry account add $DOCKER_ACCOUNT_NAME --address index.docker.io --repositories dnzmfr/canary-demo --username $DOCKER_ACCOUNT_NAME --email dropsu@gmail.com --password-file $DOCKER_PASS_FILE
 
 #Expose Spinnaker using Elastic Load Balancer
 export NAMESPACE=spinnaker
