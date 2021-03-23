@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: nginx-demo-app
+  name: nginx-demo
+  namespace: spinnaker
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: nginx-demo-app
+  template:
+    metadata:
+      annotations:
+        prometheus.io/scrape: 'true'
+      labels:
+        app: nginx-demo-app
+    spec:
+      containers:
+        - image: 'dnzmfr/nginx-demo:0.1'
+          name: nginx-demo-pod
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 80
+            initialDelaySeconds: 5
+            periodSeconds: 2
+          ports:
+            - containerPort: 80
+              protocol: TCP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx-demo
+  namespace: spinnaker
+  labels:
+    app: nginx-demo-app
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+  selector:
+    app: nginx-demo-app
+  type: LoadBalancer
+
