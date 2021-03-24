@@ -1,10 +1,7 @@
 #!/usr/bin/env bash
 
- bold() {
-   echo ". $(tput bold)" "$*" "$(tput sgr0)";
- }
+source init.sh
 
-export EKS_CLUSTER_NAME=spinnaker-eks
 export ACCOUNT_ID=$(aws sts get-caller-identity --output text --query Account)
 export AWS_REGION=$(curl -s 169.254.169.254/latest/dynamic/instance-identity/document| grep "region"| awk -F"\"" '{print $4}')
 egrep -q ACCOUNT_ID ~/.bash_profile && sed -i "s|export ACCOUNT_ID.*|export ACCOUNT_ID=${ACCOUNT_ID}|g" ~/.bash_profile || echo "export ACCOUNT_ID=${ACCOUNT_ID}" | tee -a ~/.bash_profile
@@ -16,7 +13,7 @@ export MASTER_ARN=$(aws kms describe-key --key-id alias/spinnaker --query KeyMet
 egrep -q MASTER_ARN ~/.bash_profile && sed -i "s|export MASTER_ARN.*|export MASTER_ARN=${MASTER_ARN}|g" ~/.bash_profile || echo "export MASTER_ARN=${MASTER_ARN}" | tee -a ~/.bash_profile
 
 # Generate cluster config yaml for eksctl
-cat << EOF > ./${EKS_CLUSTER_NAME}.yaml
+cat << EOF > ${HOME}/${EKS_CLUSTER_NAME}.yaml
 ---
 apiVersion: eksctl.io/v1alpha5
 kind: ClusterConfig
@@ -40,11 +37,13 @@ secretsEncryption:
   keyARN: ${MASTER_ARN}
 EOF
 
-bold "Creating the kubernetes cluster"
+bold "Create the kubernetes cluster"
 /usr/local/bin/eksctl create cluster -f ./${EKS_CLUSTER_NAME}.yaml
 
 bold "Wait for the cluster to become active"
 aws eks wait cluster-active --name ${EKS_CLUSTER_NAME}
+
+rm -f ${HOME}/${EKS_CLUSTER_NAME}.yaml
 
 bold "Retrieve Amazon EKS cluster kubectl contexts"
 rm -f /home/ec2-user/.kube/config
@@ -98,10 +97,14 @@ export AWS_SECRET_ACCESS_KEY=$(grep aws_secret_access_key ~/.aws/credentials| aw
 hal config storage s3 edit --access-key-id ${AWS_ID_ACCESS_KEY} --secret-access-key ${AWS_SECRET_ACCESS_KEY} --region ${AWS_REGION}
 hal config storage edit --type s3 # test
 
-# Deploy Spinnaker
+bold "Deploy Spinnaker"
 hal deploy apply --wait-for-completion
- 
-# Some more Spinnaker config update
+
+bold "Expose Spinnaker using Elastic Load Balancer"
+kubectl -n ${NAMESPACE} expose service spin-gate --type LoadBalancer --port 80 --target-port 8084 --name spin-gate-public
+kubectl -n ${NAMESPACE} expose service spin-deck --type LoadBalancer --port 80 --target-port 9000 --name spin-deck-public
+
+bold "Apply some more Spinnaker config update"
 hal config edit --timezone Europe/Berlin
 hal config features edit --artifacts-rewrite true
 hal config artifact github enable
@@ -110,27 +113,18 @@ hal config canary prometheus enable
 hal config canary prometheus account add my-prometheus --base-url http://prometheus-server.prometheus.svc.cluster.local:80
 hal config canary edit --default-metrics-store prometheus
 hal config canary edit --default-metrics-account my-prometheus
-export GITHUB_ACCOUNT_NAME=dnzmfr
-export GITHUB_TOKEN_FILE=/home/ec2-user/.github.tkn
 hal config artifact github account add $GITHUB_ACCOUNT_NAME --token-file $GITHUB_TOKEN_FILE
 hal config provider docker-registry enable
-export DOCKER_ACCOUNT_NAME=dnzmfr
-export DOCKER_PASS_FILE=/home/ec2-user/.docker.psw
 hal config provider docker-registry account add $DOCKER_ACCOUNT_NAME --address index.docker.io --repositories dnzmfr/canary-demo --username $DOCKER_ACCOUNT_NAME --email dropsu@gmail.com --password-file $DOCKER_PASS_FILE
-
-#Expose Spinnaker using Elastic Load Balancer
-export NAMESPACE=spinnaker
-kubectl -n ${NAMESPACE} expose service spin-gate --type LoadBalancer --port 80 --target-port 8084 --name spin-gate-public
-kubectl -n ${NAMESPACE} expose service spin-deck --type LoadBalancer --port 80 --target-port 9000 --name spin-deck-public
 export API_URL=$(kubectl -n ${NAMESPACE} get svc spin-gate-public -o jsonpath='{.status.loadBalancer.ingress[0].hostname}')
 export UI_URL=$(kubectl -n ${NAMESPACE} get svc spin-deck-public -o jsonpath='{.status.loadBalancer.ingress[0].hostname}')
 hal config security api edit --override-base-url http://${API_URL}
 hal config security ui edit --override-base-url http://${UI_URL}
 
-# Apply changes to Spinnaker
+bold "Deploy the last spinnaker config updates"
 hal deploy apply
 
-#Create config for spin cli
+bold "Create config for spin cli"
 rm -f ${HOME}/.spin/config
 mkdir -p ${HOME}/.spin
 cat << EOF > ${HOME}/.spin/config
@@ -140,3 +134,4 @@ auth:
   enabled: false
 EOF
 
+bold "Done."

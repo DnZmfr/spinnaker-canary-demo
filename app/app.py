@@ -12,10 +12,10 @@ c = Counter('requests', 'Number of requests served, by http code', ['http_code']
 def hello():
     if randrange(1, 100) > int(os.environ['SUCCESS_RATE']):
         c.labels(http_code = '500').inc()
-        return "Internal Server Error\n", 500
+        return "Internal Server Error!\n", 500
     else:
         c.labels(http_code = '200').inc()
-        return "Bienvenido a Spinnaker!\nv0.1\n"
+        return "Bienvenido a Spinnaker! v0.5\n"
 
 start_http_server(8000)
 app.run(host = '0.0.0.0', port = 80)
