@@ -1,0 +1,116 @@
+{
+  "name": "Trigger deploy",
+  "application": "canary-demo-app",
+  "appConfig": {},
+  "description": "This pipeline deploys a simple NginX in Kubernetes triggered by an update on docker registry.",
+  "expectedArtifacts": [],
+  "keepWaitingPipelines": false,
+  "lastModifiedBy": "anonymous",
+  "limitConcurrent": true,
+  "parameterConfig": [],
+  "spelEvaluator": "v4",
+  "stages": [
+    {
+      "account": "spinnaker-eks",
+      "cloudProvider": "kubernetes",
+      "manifests": [
+        {
+          "apiVersion": "apps/v1",
+          "kind": "Deployment",
+          "metadata": {
+            "labels": {
+              "app": "canary-demo-app"
+            },
+            "name": "canary-demo",
+            "namespace": "spinnaker"
+          },
+          "spec": {
+            "replicas": 2,
+            "selector": {
+              "matchLabels": {
+                "app": "canary-demo-app"
+              }
+            },
+            "template": {
+              "metadata": {
+                "annotations": {
+                  "prometheus.io/scrape": "true",
+                  "prometheus.io/port": "8000"
+                },
+                "labels": {
+                  "app": "canary-demo-app"
+                }
+              },
+              "spec": {
+                "containers": [
+                  {
+                    "image": "dnzmfr/canary-demo:0.1",
+                    "name": "canary-demo-app-pod",
+                    "ports": [
+                      {
+                        "containerPort": 80,
+                        "protocol": "TCP"
+                      }
+                    ]
+                  }
+                ]
+              }
+            }
+          }
+        },
+        {
+          "apiVersion": "v1",
+          "kind": "Service",
+          "metadata": {
+            "name": "canary-demo-service",
+            "namespace": "spinnaker",
+	    "labels": {
+              "app": "canary-demo-app"
+	    }
+          },
+          "spec": {
+            "ports": [
+              {
+                "port": 80,
+                "protocol": "TCP"
+              }
+            ],
+            "selector": {
+              "app": "canary-demo-app"
+            },
+            "type": "LoadBalancer"
+          }
+        }
+      ],
+      "moniker": {
+        "app": "canary-demo-app"
+      },
+      "name": "Deploy Docker Image",
+      "refId": "1",
+      "requisiteStageRefIds": [],
+      "skipExpressionEvaluation": false,
+      "source": "text",
+      "trafficManagement": {
+        "enabled": false,
+        "options": {
+          "enableTraffic": false,
+          "services": []
+        }
+      },
+      "type": "deployManifest"
+    }
+  ],
+  "triggers": [
+    {
+      "account": "dnzmfr",
+      "enabled": true,
+      "expectedArtifactIds": [],
+      "organization": "dnzmfr",
+      "registry": "index.docker.io",
+      "repository": "dnzmfr/canary-demo",
+      "type": "docker"
+    }
+  ],
+  "updateTs": "1616431121000"
+}
+

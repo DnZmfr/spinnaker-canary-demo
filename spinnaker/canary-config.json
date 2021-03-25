@@ -1,0 +1,48 @@
+{
+  "applications": [
+    "canary-demo-app"
+  ],
+  "classifier": {
+    "groupWeights": {
+      "Group 1": 100
+    }
+  },
+  "configVersion": "1",
+  "description": "canary test config",
+  "isNew": true,
+  "judge": {
+    "judgeConfigurations": {},
+    "name": "NetflixACAJudge-v1.0"
+  },
+  "metrics": [
+    {
+      "analysisConfigurations": {
+        "canary": {
+          "direction": "increase",
+          "effectSize": {
+            "allowedIncrease": 1.05,
+            "criticalIncrease": 1.1
+          },
+          "nanStrategy": "remove"
+        }
+      },
+      "groups": [
+        "Group 1"
+      ],
+      "name": "default",
+      "query": {
+        "customFilterTemplate": null,
+        "customInlineTemplate": "PromQL:http_code = \"500\"",
+        "queryType": "PROMQL",
+        "resourceType": "aws_ec2_instance",
+        "serviceType": "prometheus",
+        "type": "prometheus"
+      },
+      "scopeName": "default"
+    }
+  ],
+  "name": "canary-test",
+  "templates": {
+    "http_code500": "http_code = \"500\""
+  }
+}

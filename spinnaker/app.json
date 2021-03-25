@@ -1,0 +1,16 @@
+{
+ "cloudProviders": "kubernetes",
+ "dataSources": {
+  "disabled": [],
+  "enabled": [
+   "canaryConfigs"
+  ]
+ },
+ "email": "owner@email.com",
+ "instancePort": 80,
+ "lastModifiedBy": "anonymous",
+ "name": "canary-demo-app",
+ "trafficGuards": [],
+ "updateTs": "1616589618000",
+ "user": "[anonymous]"
+}
