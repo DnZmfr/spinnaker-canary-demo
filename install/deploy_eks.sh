@@ -38,7 +38,8 @@ secretsEncryption:
 EOF
 
 bold "Create the kubernetes cluster"
-/usr/local/bin/eksctl create cluster -f ./${EKS_CLUSTER_NAME}.yaml
+/usr/local/bin/eksctl create cluster -f ${HOME}/${EKS_CLUSTER_NAME}.yaml
+rm -f ${HOME}/${EKS_CLUSTER_NAME}.yaml
 
 bold "Wait for the cluster to become active"
 aws eks wait cluster-active --name ${EKS_CLUSTER_NAME}
