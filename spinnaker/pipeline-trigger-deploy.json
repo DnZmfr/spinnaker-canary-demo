@@ -21,7 +21,7 @@
             "labels": {
               "app": "canary-demo-app"
             },
-            "name": "canary-demo",
+            "name": "canary-demo-app",
             "namespace": "spinnaker"
           },
           "spec": {
