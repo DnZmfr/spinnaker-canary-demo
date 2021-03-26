@@ -93,13 +93,14 @@ hal config features edit --artifacts true
 #Configure Spinnaker to install in Kubernetes
 hal config deploy edit --type distributed --account-name ${EKS_CLUSTER_NAME}
 #Configure Spinnaker to use AWS S3
-export AWS_ID_ACCESS_KEY=$(grep aws_access_key_id ~/.aws/credentials| awk {'print $NF}')
-export AWS_SECRET_ACCESS_KEY=$(grep aws_secret_access_key ~/.aws/credentials| awk {'print $NF}')
 hal config storage s3 edit --access-key-id ${AWS_ID_ACCESS_KEY} --secret-access-key ${AWS_SECRET_ACCESS_KEY} --region ${AWS_REGION}
-hal config storage edit --type s3 # test
+hal config storage edit --type s3
 
 bold "Deploy Spinnaker"
 hal deploy apply --wait-for-completion
+
+bold "Install minio object store. Needed for canary config storage."
+helm install --namespace spinnaker name minio --set accessKey=${MINIO_ACCESS_KEY} --set secretKey=${MINIO_SECRET_KEY} stable/minio
 
 bold "Expose Spinnaker using Elastic Load Balancer"
 kubectl -n ${NAMESPACE} expose service spin-gate --type LoadBalancer --port 80 --target-port 8084 --name spin-gate-public
@@ -112,8 +113,12 @@ hal config artifact github enable
 hal config canary enable
 hal config canary prometheus enable
 hal config canary prometheus account add my-prometheus --base-url http://prometheus-server.prometheus.svc.cluster.local:80
+hal config canary aws enable
+echo ${MINIO_SECRET_KEY} | hal config canary aws account add my-minio --bucket spin-bucket --endpoint http://minio.spinnaker.svc.cluster.local:9000 --access-key-id ${MINIO_ACCESS_KEY} --secret-access-key
+hal config canary aws edit --s3-enabled=true
 hal config canary edit --default-metrics-store prometheus
 hal config canary edit --default-metrics-account my-prometheus
+hal config canary edit --default-storage-account my-minio
 hal config artifact github account add $GITHUB_ACCOUNT_NAME --token-file $GITHUB_TOKEN_FILE
 hal config provider docker-registry enable
 hal config provider docker-registry account add $DOCKER_ACCOUNT_NAME --address index.docker.io --repositories dnzmfr/canary-demo --username $DOCKER_ACCOUNT_NAME --email dropsu@gmail.com --password-file $DOCKER_PASS_FILE
