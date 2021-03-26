@@ -102,6 +102,11 @@ hal deploy apply --wait-for-completion
 bold "Install minio object store. Needed for canary config storage."
 helm install --namespace spinnaker name minio --set accessKey=${MINIO_ACCESS_KEY} --set secretKey=${MINIO_SECRET_KEY} stable/minio
 
+bold "Disable object versioning in Spinnaker as it is not supported by Minio"
+cat << EOF > ${HOME}/.hal/default/profiles/front50-local.yml
+spinnaker.s3.versioning: false
+EOF
+
 bold "Expose Spinnaker using Elastic Load Balancer"
 kubectl -n ${NAMESPACE} expose service spin-gate --type LoadBalancer --port 80 --target-port 8084 --name spin-gate-public
 kubectl -n ${NAMESPACE} expose service spin-deck --type LoadBalancer --port 80 --target-port 9000 --name spin-deck-public
