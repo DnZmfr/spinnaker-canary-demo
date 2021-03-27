@@ -67,9 +67,6 @@ else
   bold "docker  already installed."
 fi
 
-bold "Install git"
-yum install -y git
-
 if [ ! -f /usr/local/bin/helm ]; then
   bold "Install helm cli and add some repos..."
   curl -sSL https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3 | bash
