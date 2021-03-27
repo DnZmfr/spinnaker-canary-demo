@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-source init.sh
+cd $(dirname "${BASH_SOURCE[0]}") && source init.sh
 
 bold "Create a spinnaker demo app"
 spin application save --file ../config/spinnaker/app-demo.json
@@ -16,7 +16,7 @@ bold "Create simple deploy pipeline"
 spin pipeline save --file ../config/spinnaker/pipeline-simple-deploy.json
 
 bold "Create canary deploy pipeline"
-spin pipeline save --file ../config/spinnaker/pipeline-canary-deploy.json
+spin pipeline save --file ../config/spinnaker/pipeline-manual-canary-deploy.json
 
 # Before we create the automated canary pipeline, we need to replace the SIMPLE_DEPLOY_PIPELINE_ID with
 # the actual ID of the "Simple deploy" pipeline and CANARY_CONFIG_ID with the ID of our canary config.
