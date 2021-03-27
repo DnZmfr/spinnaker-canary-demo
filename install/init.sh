@@ -11,7 +11,7 @@ export NAMESPACE=spinnaker
 if [ ! -f ~/.github.tkn ]; then
   echo "github.tkn file is missing."
   exit 1
-elif [ -s ~/.github.tkn ]; then
+elif [ ! -s ~/.github.tkn ]; then
   echo "github.tkn file is empty. token missing."
   exit 1
 else
@@ -23,7 +23,7 @@ fi
 if [ ! -f ~/.docker.psw ]; then
   echo "docker.psw file is missing."
   exit 1
-elif [ -s ~/.docker.psw ]; then
+elif [ ! -s ~/.docker.psw ]; then
   echo "docker.psw file is empty. password missing."
   exit 1
 else
@@ -34,7 +34,7 @@ fi
 # aws credentials
 if [ ! -f ~/.aws/credentials ]; then
   echo "aws credentials file is missing."
-elif [ -s ~/.aws/credentials ]; then
+elif [ ! -s ~/.aws/credentials ]; then
   echo "aws credentials file is empty."
 else
   export AWS_ID_ACCESS_KEY=$(grep aws_access_key_id ~/.aws/credentials| awk '{print $NF}')
@@ -44,7 +44,7 @@ fi
 # minio credentials
 if [ ! -f ~/.minio.creds ]; then
   echo "docke file is missing."
-elif [ -s ~/.minio.creds ]
+elif [ ! -s ~/.minio.creds ]
   echo "minio.creds file is empty. credentials missing."
 else
   export MINIO_ACCESS_KEY=$(grep ACCESS_KEY ~/.minio.creds| awk -F"=" '{print $2}')
