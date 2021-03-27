@@ -66,7 +66,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "requests_total{app=\"canary-demo-app\", app_kubernetes_io_managed_by=\"spinnaker\", app_kubernetes_io_name=\"canary-demo-app\"}",
+          "expr": "requests_total{kubernetes_pod_name=~\"canary-demo-app.+\"}",
           "instant": false,
           "interval": "",
           "legendFormat": "http_code {{http_code}} : {{instance}}",
@@ -165,7 +165,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "requests_total{app=\"canary-demo-app\", app_kubernetes_io_managed_by=\"spinnaker\", app_kubernetes_io_name=\"canary-demo-app\", http_code=\"200\"}",
+          "expr": "requests_total{http_code=\"200\",kubernetes_pod_name=~\"canary-demo-app.+\"}",
           "interval": "",
           "legendFormat": "http_code 200 : {{instance}}",
           "refId": "A"
@@ -262,7 +262,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "requests_total{app=\"canary-demo-app\", app_kubernetes_io_managed_by=\"spinnaker\", app_kubernetes_io_name=\"canary-demo-app\", http_code=\"500\"}",
+          "expr": "requests_total{http_code=\"500\",kubernetes_pod_name=~\"canary-demo-app.+\"}",
           "interval": "",
           "legendFormat": "http_code 500 : {{instance}}",
           "refId": "A"
@@ -327,6 +327,5 @@
   "timezone": "",
   "title": "Canary Demo App Monitoring",
   "uid": "uM52SawMk",
-  "version": 2
+  "version": 1
 }
-
