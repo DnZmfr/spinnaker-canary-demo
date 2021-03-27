@@ -2,7 +2,7 @@
   "name": "Trigger deploy",
   "application": "canary-demo-app",
   "appConfig": {},
-  "description": "This pipeline deploys a simple NginX in Kubernetes triggered by an update on docker registry.",
+  "description": "This pipeline deploys a simple app in Kubernetes triggered by an update on docker registry.",
   "expectedArtifacts": [],
   "keepWaitingPipelines": false,
   "lastModifiedBy": "anonymous",
