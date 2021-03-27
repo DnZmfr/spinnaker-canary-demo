@@ -406,8 +406,8 @@
           }
         ],
         "scoreThresholds": {
-          "marginal": null,
-          "pass": null
+          "marginal": "75",
+          "pass": "95"
         },
         "storageAccountName": "my-minio"
       },

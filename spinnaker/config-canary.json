@@ -40,8 +40,8 @@
  ],
  "name": "canary-test",
  "templates": {
-  "http_code_500": "http_code=\"500\",release=\"${scope}\",kubernetes_namespace=\"${location}\""
+  "http_code_500": "http_code=\"500\",kubernetes_pod_name=~\"${scope}.+\""
  },
- "updatedTimestamp": 1616848233999,
- "updatedTimestampIso": "2021-03-27T12:30:33.999Z"
+ "updatedTimestamp": 1616869598884,
+ "updatedTimestampIso": "2021-03-27T18:26:38.884Z"
 }
