@@ -69,7 +69,7 @@
           "expr": "requests_total{kubernetes_pod_name=~\"canary-demo-app.+\"}",
           "instant": false,
           "interval": "",
-          "legendFormat": "http_code {{http_code}} : {{instance}}",
+          "legendFormat": "http_code {{http_code}} : {{kubernetes_pod_name}}",
           "refId": "A"
         }
       ],
@@ -167,7 +167,7 @@
         {
           "expr": "requests_total{http_code=\"200\",kubernetes_pod_name=~\"canary-demo-app.+\"}",
           "interval": "",
-          "legendFormat": "http_code 200 : {{instance}}",
+          "legendFormat": "http_code 200 : {{kubernetes_pod_name}}",
           "refId": "A"
         }
       ],
@@ -264,7 +264,7 @@
         {
           "expr": "requests_total{http_code=\"500\",kubernetes_pod_name=~\"canary-demo-app.+\"}",
           "interval": "",
-          "legendFormat": "http_code 500 : {{instance}}",
+          "legendFormat": "http_code 500 : {{kubernetes_pod_name}}",
           "refId": "A"
         }
       ],
@@ -327,5 +327,5 @@
   "timezone": "",
   "title": "Canary Demo App Monitoring",
   "uid": "uM52SawMk",
-  "version": 1
+  "version": 3
 }
