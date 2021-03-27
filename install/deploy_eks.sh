@@ -100,7 +100,7 @@ bold "Deploy Spinnaker"
 hal deploy apply --wait-for-completion
 
 bold "Install minio object store. Needed for canary config storage."
-helm install --namespace spinnaker name minio --set accessKey=${MINIO_ACCESS_KEY} --set secretKey=${MINIO_SECRET_KEY} stable/minio
+helm install --namespace spinnaker minio --set accessKey=${MINIO_ACCESS_KEY} --set secretKey=${MINIO_SECRET_KEY} stable/minio
 
 bold "Disable object versioning in Spinnaker as it is not supported by Minio"
 cat << EOF > ${HOME}/.hal/default/profiles/front50-local.yml

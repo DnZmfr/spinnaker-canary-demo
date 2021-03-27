@@ -44,7 +44,7 @@ fi
 # minio credentials
 if [ ! -f ~/.minio.creds ]; then
   echo "docke file is missing."
-elif [ ! -s ~/.minio.creds ]
+elif [ ! -s ~/.minio.creds ]; then
   echo "minio.creds file is empty. credentials missing."
 else
   export MINIO_ACCESS_KEY=$(grep ACCESS_KEY ~/.minio.creds| awk -F"=" '{print $2}')
