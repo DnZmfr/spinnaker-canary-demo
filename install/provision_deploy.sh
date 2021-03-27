@@ -3,8 +3,8 @@
 source init.sh
 
 if [ $USER != "root" ]; then
-  echo "This script should be executed as root."
-  bold "Run: sudo $0"
+  bold "This script should be executed as root."
+  echo "Run: sudo $0"
   exit 1
 fi
 
@@ -61,6 +61,8 @@ fi
 if [ ! -f /usr/bin/docker ]; then
   bold "Install docker..."
   yum install -y docker
+  systemctl enable docker
+  systemctl start docker
 else
   bold "docker  already installed."
 fi
