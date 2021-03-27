@@ -54,7 +54,7 @@ bold "Deploy Prometheus and Grafana"
 kubectl create namespace prometheus
 kubectl create namespace grafana
 helm install prometheus prometheus-community/prometheus --namespace prometheus
-helm install grafana grafana/grafana --namespace grafana --set adminPassword=parola123 --values grafana.yaml --set service.type=LoadBalancer
+helm install grafana grafana/grafana --namespace grafana --set adminPassword=parola123 --values ../config/grafana/datasource.yaml --set service.type=LoadBalancer
 
 bold "Prepare Spinnaker"
 rm -f ~/.hal/config
@@ -71,7 +71,7 @@ kubectl config use-context ${EKS_CLUSTER_NAME}
 export CONTEXT=$(kubectl config current-context)
 
 bold "Create a service account for the Amazon EKS cluster"
-kubectl apply --context ${CONTEXT} -f https://www.spinnaker.io/downloads/kubernetes/service-account.yml
+kubectl apply --context ${CONTEXT} -f ../config/spinnaker/service-account.yml
 
 #Extract the secret token of the spinnaker-service-account
 export TOKEN=$(kubectl get secret --context ${CONTEXT} \
