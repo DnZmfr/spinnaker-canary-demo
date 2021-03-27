@@ -22,7 +22,7 @@
               "app": "canary-demo-app"
             },
             "name": "canary-demo-app",
-            "namespace": "spinnaker"
+            "namespace": "default"
           },
           "spec": {
             "replicas": 2,
@@ -63,7 +63,7 @@
           "kind": "Service",
           "metadata": {
             "name": "canary-demo-service",
-            "namespace": "spinnaker",
+            "namespace": "default",
 	    "labels": {
               "app": "canary-demo-app"
 	    }

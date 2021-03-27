@@ -67,7 +67,7 @@
               "app": "canary-demo-app"
             },
             "name": "canary-demo-app",
-            "namespace": "spinnaker"
+            "namespace": "default"
           },
           "spec": {
             "replicas": 1,
@@ -102,7 +102,7 @@
                         }
                       }
                     ],
-                    "image": "dnzmfr/canary-demo:0.4",
+                    "image": "dnzmfr/canary-demo:latest",
                     "name": "canary-demo-app",
                     "ports": [
                       {
@@ -152,7 +152,7 @@
               "app": "canary-demo-app-baseline"
             },
             "name": "canary-demo-app-baseline",
-            "namespace": "spinnaker"
+            "namespace": "default"
           },
           "spec": {
             "replicas": 1,
@@ -186,7 +186,7 @@
                         }
                       }
                     ],
-                    "image": "dnzmfr/canary-demo:0.4",
+                    "image": "dnzmfr/canary-demo:latest",
                     "name": "canary-demo-app",
                     "ports": [
                       {
