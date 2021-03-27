@@ -59,7 +59,7 @@ helm install grafana grafana/grafana --namespace grafana --set adminPassword=par
 bold "Prepare Spinnaker"
 rm -f ~/.hal/config
 rm -rf ~/.hal/default
-hal config version edit --version 1.25.3
+hal config version edit --version 1.24.4
 
 #Halyard/Spinnaker: Enable the Kubernetes provider"
 hal config provider kubernetes enable
