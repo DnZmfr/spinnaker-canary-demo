@@ -1,48 +1,47 @@
 {
-  "applications": [
-    "canary-demo-app"
-  ],
-  "classifier": {
-    "groupWeights": {
-      "Group 1": 100
-    }
-  },
-  "configVersion": "1",
-  "description": "canary test config",
-  "isNew": true,
-  "judge": {
-    "judgeConfigurations": {},
-    "name": "NetflixACAJudge-v1.0"
-  },
-  "metrics": [
-    {
-      "analysisConfigurations": {
-        "canary": {
-          "direction": "increase",
-          "effectSize": {
-            "allowedIncrease": 1.05,
-            "criticalIncrease": 1.1
-          },
-          "nanStrategy": "remove"
-        }
-      },
-      "groups": [
-        "Group 1"
-      ],
-      "name": "default",
-      "query": {
-        "customFilterTemplate": null,
-        "customInlineTemplate": "PromQL:http_code = \"500\"",
-        "queryType": "PROMQL",
-        "resourceType": "aws_ec2_instance",
-        "serviceType": "prometheus",
-        "type": "prometheus"
-      },
-      "scopeName": "default"
-    }
-  ],
-  "name": "canary-test",
-  "templates": {
-    "http_code500": "http_code = \"500\""
+ "applications": [
+  "canary-demo-app"
+ ],
+ "classifier": {
+  "groupWeights": {
+   "Group 1": 100
   }
+ },
+ "configVersion": "1",
+ "createdTimestamp": 1616848233999,
+ "createdTimestampIso": "2021-03-27T12:30:33.999Z",
+ "description": "",
+ "id": "e5ffc932-f898-418a-a3a1-04d6b8317026",
+ "judge": {
+  "judgeConfigurations": {},
+  "name": "NetflixACAJudge-v1.0"
+ },
+ "metrics": [
+  {
+   "analysisConfigurations": {
+    "canary": {
+     "direction": "increase"
+    }
+   },
+   "groups": [
+    "Group 1"
+   ],
+   "name": "error_rate",
+   "query": {
+    "customFilterTemplate": "http_code_500",
+    "groupByFields": [],
+    "labelBindings": [],
+    "metricName": "requests_total",
+    "serviceType": "prometheus",
+    "type": "prometheus"
+   },
+   "scopeName": "default"
+  }
+ ],
+ "name": "canary-test",
+ "templates": {
+  "http_code_500": "http_code=\"500\",release=\"${scope}\",kubernetes_namespace=\"${location}\""
+ },
+ "updatedTimestamp": 1616848233999,
+ "updatedTimestampIso": "2021-03-27T12:30:33.999Z"
 }
