@@ -71,9 +71,9 @@ if [ ! -f /usr/local/bin/helm ]; then
   bold "Install helm cli and add some repos..."
   curl -sSL https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3 | bash
   helm repo add stable https://charts.helm.sh/stable
- helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
- helm repo add grafana https://grafana.github.io/helm-charts
- helm repo add minio https://operator.min.io/
+  helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
+  helm repo add grafana https://grafana.github.io/helm-charts
+  helm repo add minio https://operator.min.io/
 else
   bold "helm cli already installed."
 fi
