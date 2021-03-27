@@ -44,7 +44,7 @@
               "spec": {
                 "containers": [
                   {
-                    "image": "dnzmfr/canary-demo:0.1",
+		    "image": "dnzmfr/canary-demo:${trigger['tag']}",
                     "name": "canary-demo-app-pod",
                     "ports": [
                       {

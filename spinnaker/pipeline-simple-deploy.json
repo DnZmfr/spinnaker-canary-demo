@@ -71,7 +71,7 @@
               "app": "canary-demo-app"
             },
             "name": "canary-demo-app",
-            "namespace": "spinnaker"
+            "namespace": "default"
           },
           "spec": {
             "replicas": 2,
@@ -104,7 +104,7 @@
                         }
                       }
                     ],
-                    "image": "dnzmfr/canary-demo:0.4",
+                    "image": "dnzmfr/canary-demo:latest",
                     "name": "canary-demo-app",
                     "ports": [
                       {
@@ -125,7 +125,7 @@
           "kind": "Service",
           "metadata": {
             "name": "canary-demo-service",
-            "namespace": "spinnaker"
+            "namespace": "default"
           },
           "spec": {
             "ports": [
@@ -201,7 +201,7 @@
               "app": "canary-demo-app"
             },
             "name": "canary-demo-app-config-prod",
-            "namespace": "spinnaker"
+            "namespace": "default"
           }
         }
       ],
