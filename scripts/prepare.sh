@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 
-source init.sh
+bold() {
+  echo ". $(tput bold)" "$*" "$(tput sgr0)";
+}
 
 if [ $USER != "root" ]; then
   bold "This script should be executed as root."
@@ -15,6 +17,20 @@ if [ ! -f /usr/local/bin/kubectl ]; then
 else
   bold "kubectl cli already installed."
 fi
+
+if [ ! -f /usr/local/bin/k9s ]; then
+  bold "Install k9s cli..."
+  curl -sLO https://github.com/derailed/k9s/releases/latest/download/k9s_$(uname -s)_$(uname -m).tar.gz
+  tar xf k9s_$(uname -s)_$(uname -m).tar.gz k9s
+  mv k9s /usr/local/bin/
+else
+  bold "k9s cli already installed."
+fi
+
+curl -sLO https://github.com/derailed/k9s/releases/latest/download/k9s_$(uname -s)_$(uname -m).tar.gz
+tar xf k9s_$(uname -s)_$(uname -m).tar.gz k9s
+mv k9s /usr/local/bin/
+
 
 if [ ! -f /usr/local/bin/aws-iam-authenticator ]; then
   bold "Install aws-iam-authenticator cli..."
