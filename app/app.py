@@ -15,7 +15,7 @@ def hello():
         return "Internal Server Error!\n", 500
     else:
         c.labels(http_code = '200').inc()
-        return "Bienvenido a Spinnaker! v0.5\n"
+        return "Bienvenido a Spinnaker! vlatest\n"
 
 start_http_server(8000)
 app.run(host = '0.0.0.0', port = 80)
