@@ -6,7 +6,6 @@ bold() {
 
 if [ $USER != "root" ]; then
   bold "This script should be executed as root."
-  echo "Run: sudo $0"
   exit 1
 fi
 
