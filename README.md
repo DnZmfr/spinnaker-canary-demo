@@ -51,6 +51,7 @@ Canary is a deployment process in which a change is partially rolled out, then 
 * A Github account
 * A linux server for deployment purpose (Amazon Linux, or any other flavour with yum package manager). For this demo I use an AWS EC2 t2.small instance with 1vCPU and 2GiB Memory. 
 
+### Prepare deployment server
 ```
 ssh ec2-user@deploy-server
 
@@ -75,7 +76,7 @@ git config --global user.email your-fake-github-email@users.noreply.github.com
 
 git clone https://github.com/DnZmfr/spinnaker-canary-demo.git
 cd spinnaker-canary-demo/scripts
-Install required command lines
+# Install required command lines
 sudo ./prepare.sh
 ```
 
@@ -83,11 +84,13 @@ Follow these [instruction](https://github.com/DnZmfr/spinnaker-canary-demo/setti
 
 ## Installation
 
+#### Deploy EKS cluster, prometheus, grafana, minio and spinnaker
 ```
 cd spinnaker-canary-demo/scripts
-# Deploy EKS cluster, prometheus, grafana, minio and spinnaker
 ./deploy.sh
+```
 
-# Create spinnaker demo-app, canary config and pipelines
+#### Create spinnaker demo-app, canary config and pipelines
+```
 ./create_spinnaker_app.sh
 ```
