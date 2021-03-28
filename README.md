@@ -6,7 +6,7 @@ This repository contains all the scripts, files and instructions necessary to cr
 
 Canary is a deployment process in which a change is partially rolled out, then evaluated against the current deployment (baseline) to ensure that the new deployment is operating at least as well as the old. This evaluation is done using key metrics that are chosen when the canary is configured.
 
-### Tools & Technologies:
+#### Tools & Technologies:
 * [AWS](https://aws.amazon.com/) - AWS Cloud computing
 * [Kubernetes](https://kubernetes.io/) - Container orchestration platform
 * [Docker](https://www.docker.com/) - Containerization platform
@@ -15,7 +15,7 @@ Canary is a deployment process in which a change is partially rolled out, then 
 * [Prometheus](https://prometheus.io/) - Time-series metrics monitoring tool
 * [Grafana](https://aws.amazon.com/) - Observability dashboards for prometheus metrics
 
-### Repo Structure
+#### Repo Structure
 
 ```
 .
@@ -39,11 +39,12 @@ Canary is a deployment process in which a change is partially rolled out, then 
 |       `-- service-account.yml                     # spinnaker
 `-- scripts                                         # directory containing scripts to prepare and deploy infrastructure and app
     |-- init.sh                                     # bash script to initialize required variables used during deployment
-    |-- prepare.sh                                  # bash script to install required command lines
+    |-- prepare.sh                                  # bash script to install required command lines. must run as root
     |-- deploy.sh                                   # script to deploy the infrastructure: k8s cluster, prometheus, grafana, spinnaker, minio
     `-- create_spinnaker_app.sh                     # script to creating a spinnaker demo app, canary config and pipelines             
 ```
-
+#### Architecture diagram
+![Architecture diagram](./diagram.png "Architecture diagram")
 ## Prerequisites
 
 * An AWS account
@@ -51,7 +52,7 @@ Canary is a deployment process in which a change is partially rolled out, then 
 * A Github account
 * A linux server for deployment purpose (Amazon Linux, or any other flavour with yum package manager). For this demo I use an AWS EC2 t2.small instance with 1vCPU and 2GiB Memory. 
 
-### Prepare deployment server
+#### Prepare deployment server
 ```
 ssh ec2-user@deploy-server
 
@@ -93,4 +94,9 @@ cd spinnaker-canary-demo/scripts
 #### Create spinnaker demo-app, canary config and pipelines
 ```
 ./create_spinnaker_app.sh
+```
+
+## Cleanup
+````
+eksctl delete cluster spinnaker-eks
 ```
