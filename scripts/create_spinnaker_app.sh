@@ -31,4 +31,4 @@ bold "Create automated canary deploy pipeline"
 spin pipeline save --file ../config/spinnaker/pipeline-automated-canary-deploy.json
 
 mv ../config/spinnaker/pipeline-manual-canary-deploy.json.orig ../config/spinnaker/pipeline-manual-canary-deploy.json
-mv ../config/spinnaker/pipeline-automated-canary.json.orig ../config/spinnaker/pipeline-automated-canary-deploy.json
+mv ../config/spinnaker/pipeline-automated-canary-deploy.json.orig ../config/spinnaker/pipeline-automated-canary-deploy.json
