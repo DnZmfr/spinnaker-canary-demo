@@ -21,14 +21,14 @@ export SIMPLE_DEPLOY_PIPELINE_ID=$(spin pipelines get -a canary-demo-app -n "Sim
 export CANARY_CONFIG_ID=$(spin canary canary-config list -o jsonpath="{[0].id}")
 
 sed -i.orig "s/SIMPLE_DEPLOY_PIPELINE_ID/$SIMPLE_DEPLOY_PIPELINE_ID/g" ../config/spinnaker/pipeline-manual-canary-deploy.json
-sed -i.orig "s/SIMPLE_DEPLOY_PIPELINE_ID/$SIMPLE_DEPLOY_PIPELINE_ID/g" ../config/spinnaker/pipeline-automated-canary.json
-sed -i "s/CANARY_CONFIG_ID/$CANARY_CONFIG_ID/g" ../config/spinnaker/pipeline-automated-canary.json
+sed -i.orig "s/SIMPLE_DEPLOY_PIPELINE_ID/$SIMPLE_DEPLOY_PIPELINE_ID/g" ../config/spinnaker/pipeline-automated-canary-deploy.json
+sed -i "s/CANARY_CONFIG_ID/$CANARY_CONFIG_ID/g" ../config/spinnaker/pipeline-automated-canary-deploy.json
 
 bold "Create canary deploy pipeline"
 spin pipeline save --file ../config/spinnaker/pipeline-manual-canary-deploy.json
 
 bold "Create automated canary deploy pipeline"
-spin pipeline save --file ../config/spinnaker/pipeline-automated-canary.json
+spin pipeline save --file ../config/spinnaker/pipeline-automated-canary-deploy.json
 
 mv ../config/spinnaker/pipeline-manual-canary-deploy.json.orig ../config/spinnaker/pipeline-manual-canary-deploy.json
-mv ../config/spinnaker/pipeline-automated-canary.json.orig ../config/spinnaker/pipeline-automated-canary.json
+mv ../config/spinnaker/pipeline-automated-canary.json.orig ../config/spinnaker/pipeline-automated-canary-deploy.json

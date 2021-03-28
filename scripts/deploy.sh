@@ -50,6 +50,12 @@ bold "Retrieve Amazon EKS cluster kubectl contexts"
 rm -f /home/ec2-user/.kube/config
 aws eks update-kubeconfig --name ${EKS_CLUSTER_NAME} --region eu-central-1 --alias ${EKS_CLUSTER_NAME}
 
+bold "Add helm repos"
+helm repo add stable https://charts.helm.sh/stable
+helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
+helm repo add grafana https://grafana.github.io/helm-charts
+helm repo add minio https://operator.min.io/
+
 bold "Deploy Prometheus and Grafana"
 kubectl create namespace prometheus
 kubectl create namespace grafana
