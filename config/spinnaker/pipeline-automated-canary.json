@@ -391,9 +391,9 @@
       "analysisType": "realTime",
       "canaryConfig": {
         "beginCanaryAnalysisAfterMins": "0",
-        "canaryAnalysisIntervalMins": "5",
+        "canaryAnalysisIntervalMins": "2",
         "canaryConfigId": "CANARY_CONFIG_ID",
-        "lifetimeDuration": "PT0H5M",
+        "lifetimeDuration": "PT0H10M",
         "metricsAccountName": "my-prometheus",
         "scopes": [
           {
@@ -407,7 +407,7 @@
         ],
         "scoreThresholds": {
           "marginal": "75",
-          "pass": "95"
+          "pass": "100"
         },
         "storageAccountName": "my-minio"
       },
