@@ -97,6 +97,6 @@ cd spinnaker-canary-demo/scripts
 ```
 
 ## Cleanup
-````
+```
 eksctl delete cluster spinnaker-eks
 ```
