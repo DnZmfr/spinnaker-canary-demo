@@ -1,6 +1,4 @@
 {
-  "name": "Simple deploy",
-  "application": "canary-demo-app",
   "appConfig": {},
   "description": "This pipeline deploys the sample application in Kubernetes in the most simple way possible, with no checks.\nYou can choose the success rate of the application.",
   "executionEngine": "v2",
@@ -83,8 +81,8 @@
             "template": {
               "metadata": {
                 "annotations": {
-                  "prometheus.io/scrape": "true",
-		  "prometheus.io/port": "8000"
+                  "prometheus.io/port": "8000",
+                  "prometheus.io/scrape": "true"
                 },
                 "labels": {
                   "app": "canary-demo-app"
@@ -110,7 +108,7 @@
                       {
                         "containerPort": 80
                       },
-		      {
+                      {
                         "containerPort": 8000
                       }
                     ]
@@ -145,7 +143,7 @@
       "moniker": {
         "app": "canary-demo-app"
       },
-      "name": "Deploy",
+      "name": "Deploy Demo App",
       "options": {
         "cascading": true
       },
@@ -217,8 +215,53 @@
       "requisiteStageRefIds": [],
       "source": "text",
       "type": "deployManifest"
+    },
+    {
+      "account": "spinnaker-eks",
+      "cloudProvider": "kubernetes",
+      "manifests": [
+        {
+          "apiVersion": "v1",
+          "kind": "Pod",
+          "metadata": {
+            "name": "traffic-generator",
+            "namespace": "default"
+          },
+          "spec": {
+            "containers": [
+              {
+                "command": [
+                  "sh",
+                  "-c",
+                  "while true; do curl -sS --max-time 3 http://canary-demo-service/; done"
+                ],
+                "image": "curlimages/curl",
+                "name": "traffic-generator"
+              }
+            ]
+          }
+        }
+      ],
+      "moniker": {
+        "app": "canary-demo-app"
+      },
+      "name": "Deploy Traffic Generator",
+      "refId": "3",
+      "requisiteStageRefIds": [
+        "1"
+      ],
+      "skipExpressionEvaluation": false,
+      "source": "text",
+      "trafficManagement": {
+        "enabled": false,
+        "options": {
+          "enableTraffic": false,
+          "services": []
+        }
+      },
+      "type": "deployManifest"
     }
   ],
   "triggers": [],
-  "updateTs": "1616429195000"
+  "updateTs": "1616893184000"
 }
