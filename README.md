@@ -1,6 +1,6 @@
 # Canary deployment with Spinnaker
 
-This repository contains all the scripts, files and instructions necessary to create the infrastructure and perform a - manual, or automated - canary deployment under 30 minutes.
+This repository contains all the scripts, files and instructions necessary to create the infrastructure and perform a manual or automated canary deployment in 30 to 60 minutes.
 
 ## Overview
 
@@ -69,7 +69,7 @@ AWS Secret Access Key [None]: xxxxxxxxxxxxxxxxxxxxx
 Default region name [None]: eu-central-1
 Default output format [None]: json
 
-#Install git cli
+# install git cli
 sudo yum -y install git
 
 git config --global user.name your-github-user
@@ -96,20 +96,20 @@ cd spinnaker-canary-demo/scripts
 ./create_spinnaker_app.sh
 ```
 
-### Pipelines
+### Spinnaker pipelines
 #### _Simple deploy_ pipeline
 
-1. Get the Spinnaker UI public URL
-2. Open the Spinnaker UI in a browser, go to _**Applications**_ -> _**canary-demo-app**_ -> _**PIPELINES**_ and click on _**Start Manual Execution**_ button of _**Simple deploy**_ pipeline
-3. Select 100 for _**Success Rate**_ parameter and click _**Run**_
+1. Get the Spinnaker UI public URL.
+2. Open the Spinnaker UI in a browser, go to _**Applications**_ -> _**canary-demo-app**_ -> _**PIPELINES**_ and click on _**Start Manual Execution**_ button of _**Simple deploy**_ pipeline.
+3. Select 100 for _**Success Rate**_ parameter and click _**Run**_.
 
 NOTE:
 * get the Spinnaker UI public URL with the following command:
 ```
 kubectl -n spinnaker get svc spin-deck-public -o jsonpath='{.status.loadBalancer.ingress[0].hostname}'
 ```
-* 100 success rate means that we will have 100% http requests with status code 200
-* **Simple deploy** pipeline will also deploy a lightweight container which will generate traffic on our demo-app service.
+* 100 success rate means that we will have 100% http requests with status code 200.
+* **Simple deploy** pipeline will also deploy a lightweight container which will generate traffic on demo-app service.
 * get the public URL of demo-app with the following command: 
 ```
 kubectl get svc canary-demo-service -o jsonpath='{.status.loadBalancer.ingress[0].hostname}'
@@ -132,7 +132,7 @@ kubectl -n grafana get svc grafana -o jsonpath='{.status.loadBalancer.ingress[0]
 1. Open the Spinnaker UI in a browser and start the pipeline with a success rate lower than 100.
 2. The _**Manual Judgment**_ stage here is replaced with _**Canary Analysis**_ which automatically performs 5 analysis of 2 minutes each, comparing the number of 500 http_code requests between the baseline and canary version and based on the result, the new version will be deleted or deployed on production.
 
-## Cleanup
+## Teardown
 ```
 eksctl delete cluster spinnaker-eks
 ```

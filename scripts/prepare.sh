@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+set -e
+
 bold() {
   echo ". $(tput bold)" "$*" "$(tput sgr0)";
 }
