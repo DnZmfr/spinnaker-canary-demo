@@ -41,7 +41,7 @@ Canary is a deployment process in which a change is partially rolled out, then 
     |-- init.sh                                     # bash script to initialize required variables used during deployment
     |-- prepare.sh                                  # bash script to install required command lines. must run as root
     |-- deploy.sh                                   # script to deploy the infrastructure: k8s cluster, prometheus, grafana, spinnaker, minio
-    `-- create_spinnaker_app.sh                     # script to creating a spinnaker demo app, canary config and pipelines             
+    `-- create_spinnaker_app.sh                     # script to create a spinnaker demo app, canary config and pipelines             
 ```
 #### Architecture diagram
 ![Architecture diagram](./diagram.png "Architecture diagram")
