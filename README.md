@@ -52,7 +52,7 @@ Canary is a deployment process in which a change is partially rolled out, then 
 * A Github account
 * A linux server for deployment purpose (Amazon Linux, or any other flavour with yum package manager). For this demo I use an AWS EC2 t2.small instance with 1vCPU and 2GiB Memory. 
 
-#### Prepare deployment server
+### Prepare deployment server
 ```
 ssh ec2-user@deploy-server
 
