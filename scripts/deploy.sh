@@ -31,7 +31,7 @@ availabilityZones: ["${AWS_REGION}a", "${AWS_REGION}b", "${AWS_REGION}c"]
 managedNodeGroups:
 - name: spinnaker-nodegroup
   desiredCapacity: 2
-  instanceType: t2.medium
+  instanceType: t2.large
   ssh:
     allow: true
     publicKeyName: deployment
