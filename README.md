@@ -83,18 +83,54 @@ sudo ./prepare.sh
 
 Follow these [instruction](https://github.com/DnZmfr/spinnaker-canary-demo/settings/actions/add-new-runner) to add a GitHub action self-hosted runner used for CI/CD purposes.
 
-## Installation
+## Deploy
 
-#### Deploy EKS cluster, prometheus, grafana, minio and spinnaker
+### EKS cluster, prometheus, grafana, minio and spinnaker
 ```
 cd spinnaker-canary-demo/scripts
 ./deploy.sh
 ```
 
-#### Create spinnaker demo-app, canary config and pipelines
+### Spinnaker demo-app, canary config and pipelines
 ```
 ./create_spinnaker_app.sh
 ```
+
+### Pipelines
+#### _Simple deploy_ pipeline
+
+1. Get the Spinnaker UI public URL
+2. Open the Spinnaker UI in a browser, go to _**Applications**_ -> _**canary-demo-app**_ -> _**PIPELINES**_ and click on _**Start Manual Execution**_ button of _**Simple deploy**_ pipeline
+3. Select 100 for _**Success Rate**_ parameter and click _**Run**_
+
+NOTE:
+* get the Spinnaker UI public URL with the following command:
+```
+kubectl -n spinnaker get svc spin-deck-public -o jsonpath='{.status.loadBalancer.ingress[0].hostname}'
+```
+* 100 success rate means that we will have 100% http requests with status code 200
+* **Simple deploy** pipeline will also deploy a lightweight container which will generate traffic on our demo-app service.
+* get the public URL of demo-app with the following command: 
+```
+kubectl get svc canary-demo-service -o jsonpath='{.status.loadBalancer.ingress[0].hostname}'
+```
+
+#### _Manual Canary Deploy_ pipeline
+
+1. Open the Spinnaker UI in a browser and start the pipeline with a success rate lower than 100.
+2. Get the grafana public URL and import config/grafana/dashboard.json to create a dashboard for the new app.
+3. Analyze the ammount of 500 http_code requests between baseline and canary versions, go back to the running pipeline and on the _**Manual Judgment**_ stage click _**Stop**_ if you want to cancel the deployment or _**Continue**_ if you are satisfied with the metrics.
+
+NOTE:
+* baseline is a copy of the running production, which is collected by the _**Find Baseline Version**_ stage and then deployed by _**Deploy Baseline**_ under the same service as production.
+* get the public URL of grafana with the following command:
+```
+kubectl -n grafana get svc grafana -o jsonpath='{.status.loadBalancer.ingress[0].hostname}'
+```
+#### _Automated Canary Deploy_ pipeline
+
+1. Open the Spinnaker UI in a browser and start the pipeline with a success rate lower than 100.
+2. The _**Manual Judgment**_ stage here is replaced with _**Canary Analysis**_ which automatically performs 5 analysis of 2 minutes each, comparing the number of 500 http_code requests between the baseline and canary version and based on the result, the new version will be deleted or deployed on production.
 
 ## Cleanup
 ```
