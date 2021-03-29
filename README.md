@@ -118,7 +118,7 @@ kubectl get svc canary-demo-service -o jsonpath='{.status.loadBalancer.ingress[0
 #### _Manual Canary Deploy_ pipeline
 
 1. Open the Spinnaker UI in a browser and start the pipeline with a success rate lower than 100.
-2. Get the grafana public URL and import config/grafana/dashboard.json to create a dashboard for the new app.
+2. Get the grafana public URL and import [config/grafana/dashboard.json](config/grafana/dashboard.json) to create a dashboard for the new app.
 3. Analyze the ammount of 500 http_code requests between baseline and canary versions, go back to the running pipeline and on the _**Manual Judgment**_ stage click _**Stop**_ if you want to cancel the deployment or _**Continue**_ if you are satisfied with the metrics.
 
 NOTE:
