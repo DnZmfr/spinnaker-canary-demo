@@ -1,4 +1,5 @@
 # Canary deployment with Spinnaker
+![Build Status](https://github.com/DnZmfr/spinnaker-canary-demo/workflows/ci/badge.svg)
 
 This repository contains all the scripts, files and instructions necessary to create the infrastructure and perform a manual or automated canary deployment in 30 to 60 minutes.
 
