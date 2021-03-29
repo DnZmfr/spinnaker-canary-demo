@@ -3,6 +3,7 @@
 set -e
 
 cd $(dirname "${BASH_SOURCE[0]}") && source init.sh
+eksctl get cluster ${EKS_CLUSTER_NAME} && bold "${EKS_CLUSTER_NAME} already exists."  && exit 1
 
 export ACCOUNT_ID=$(aws sts get-caller-identity --output text --query Account)
 export AWS_REGION=$(curl -s 169.254.169.254/latest/dynamic/instance-identity/document| grep "region"| awk -F"\"" '{print $4}')
@@ -30,7 +31,7 @@ availabilityZones: ["${AWS_REGION}a", "${AWS_REGION}b", "${AWS_REGION}c"]
 managedNodeGroups:
 - name: spinnaker-nodegroup
   desiredCapacity: 2
-  instanceType: t2.large
+  instanceType: t2.medium
   ssh:
     allow: true
     publicKeyName: deployment
