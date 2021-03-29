@@ -36,7 +36,7 @@ Canary is a deployment process in which a change is partially rolled out, then 
 |       |-- pipeline-manual-canary-deploy.json      # manual canary deployment pipeline
 |       |-- pipeline-simple-deploy.json             # simple deployment pipeline
 |       |-- pipeline-trigger-deploy.json            # docker hub trigger deployment pipeline
-|       `-- service-account.yml                     # spinnaker
+|       `-- service-account.yml                     # spinnaker service account manifest
 `-- scripts                                         # directory containing scripts to prepare and deploy infrastructure and app
     |-- init.sh                                     # bash script to initialize required variables used during deployment
     |-- prepare.sh                                  # bash script to install required command lines. must run as root
