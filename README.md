@@ -136,3 +136,7 @@ kubectl -n grafana get svc grafana -o jsonpath='{.status.loadBalancer.ingress[0]
 ```
 eksctl delete cluster spinnaker-eks
 ```
+
+## License
+
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
