@@ -62,10 +62,10 @@ echo -n <docker-hub-password> > ${HOME}/.docker.psw
 echo "ACCESS_KEY=minio-access-key" > ${HOME}/.minio.creds
 echo "SECRET_KEY=m1nioAcc3s5Key" >> ${HOME}/.minio.creds
 
-# configure awscli
+# configure awscli - get the credentials from your aws Identity and Access Management (IAM)
 aws configure
-AWS Access Key ID [None]: AKIAIOSFODNN7EXAMPLE
-AWS Secret Access Key [None]: wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY
+AWS Access Key ID [None]: xxxxxxxxxx
+AWS Secret Access Key [None]: xxxxxxxxxxxxxxxxxxxxx
 Default region name [None]: eu-central-1
 Default output format [None]: json
 
