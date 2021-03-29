@@ -56,7 +56,7 @@ Canary is a deployment process in which a change is partially rolled out, then 
 ```
 ssh ec2-user@deploy-server
 
-# some credentials needs to be store in files to be used during deployment
+# some credentials needs to be stored in files to be used later during deployment
 echo -n <github-personal-token> > ${HOME}/.github.tkn
 echo -n <docker-hub-password> > ${HOME}/.docker.psw
 echo "ACCESS_KEY=minio-access-key" > ${HOME}/.minio.creds
