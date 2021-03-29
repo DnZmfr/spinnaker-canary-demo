@@ -78,7 +78,7 @@ git config --global user.email your-fake-github-email@users.noreply.github.com
 git clone https://github.com/DnZmfr/spinnaker-canary-demo.git
 cd spinnaker-canary-demo/scripts
 # Install required command lines
-sudo [./prepare.sh](scripts/prepare.sh)
+sudo [`./prepare.sh`](scripts/prepare.sh)
 ```
 
 Follow these [instruction](https://github.com/DnZmfr/spinnaker-canary-demo/settings/actions/add-new-runner) to add a GitHub action self-hosted runner used for CI/CD purposes.
@@ -88,12 +88,12 @@ Follow these [instruction](https://github.com/DnZmfr/spinnaker-canary-demo/setti
 ### EKS cluster, prometheus, grafana, minio and spinnaker
 ```
 cd spinnaker-canary-demo/scripts
-[./deploy.sh](scripts/deploy.sh)
+[`./deploy.sh`](scripts/deploy.sh)
 ```
 
 ### Spinnaker demo-app, canary config and pipelines
 ```
-[./create_spinnaker_app.sh](scripts/create_spinnaker_app.sh)
+[`./create_spinnaker_app.sh`](scripts/create_spinnaker_app.sh)
 ```
 
 ### Pipelines
