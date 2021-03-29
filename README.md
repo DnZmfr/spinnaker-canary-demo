@@ -24,7 +24,7 @@ Canary is a deployment process in which a change is partially rolled out, then 
 |-- app                                             # directory containing the demo-app source code and sample kubernetes deploy manifest
 |   |-- Dockerfile                                  # the app dockerfile used for building new images
 |   |-- app.py                                      # app source code
-|   `-- sample.yaml                                 # kubernetes deploy manifest
+|   `-- sample.yaml                                 # deployment k8s manifest
 |-- config                                          # directory containing config files
 |   |-- grafana                                     # grafana related source
 |   |   |-- dashboard.json                          # grafana dashboard for demo-app
@@ -35,8 +35,8 @@ Canary is a deployment process in which a change is partially rolled out, then 
 |       |-- pipeline-automated-canary-deploy.json   # automated canary deployment pipeline 
 |       |-- pipeline-manual-canary-deploy.json      # manual canary deployment pipeline
 |       |-- pipeline-simple-deploy.json             # simple deployment pipeline
-|       |-- pipeline-trigger-deploy.json            # docker hub trigger deployment pipeline
-|       `-- service-account.yml                     # spinnaker service account manifest
+|       |-- pipeline-trigger-deploy.json            # trigger deployment pipeline on docker hub registry update
+|       `-- service-account.yml                     # service account k8s manifest
 `-- scripts                                         # directory containing scripts to prepare and deploy infrastructure and app
     |-- init.sh                                     # bash script to initialize required variables used during deployment
     |-- prepare.sh                                  # bash script to install required command lines. must run as root
