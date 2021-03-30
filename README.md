@@ -14,7 +14,7 @@ Canary is a deployment process in which a change is partially rolled out, then 
 * [Spinnaker](https://spinnaker.io/) - Continuous delivery software platform
 * [MinIO](https://min.io/) - High performance object storage server
 * [Prometheus](https://prometheus.io/) - Time-series metrics monitoring tool
-* [Grafana](https://aws.amazon.com/) - Observability dashboards for prometheus metrics
+* [Grafana](https://grafana.com/) - Observability dashboards for prometheus metrics
 
 #### Repo Structure
 
